@@ -1,0 +1,23 @@
+import numpy as numpy
+import pandas as pd
+
+df = pd.read_csv('food_coded.csv')
+for col in df.columns:
+    if df[col].dtype == 'object':
+        df[col].fillna(df[col].mode(dropna=False), inplace=True)
+
+for col in df.columns:
+    if df[col].dtype != 'object':
+        df[col].fillna(df[col].mean(), inplace=True)  # Removed 'dropna=False'
+    else:
+        # Handle object columns separately (if needed)
+        pass  # Replace with appropriate code if you need to fill missing values in object columns
+
+df.weight.replace("I'm not answering this. ", "150", inplace=True)
+df.weight.replace("Not sure, 240", "240", inplace=True)
+df["type_sports"].fillna(df["type_sports"].mode()[0], inplace=True)
+df.type_sports.replace("none", "Basketball", inplace=True)
+df.type_sports.replace("Basketball ", "Basketball", inplace=True)
+df.type_sports.replace("basketball ", "Basketball", inplace=True)
+
+print(df)
