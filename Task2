@@ -1,0 +1,17 @@
+from google.colab import files
+uploaded = files.upload()
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+df=pd.read_csv('house price data.csv')
+
+# Specify the columns to remove by name
+…df["yr_renovated"] = df["yr_renovated"].replace(0, 1997)
+
+
+from sklearn.preprocessing import OneHotEncoder,StandardScaler
+one_hot_encoded_data = pd.get_dummies(df,columns = ["city","street","statezip","yr_built","yr_renovated"])
+x=one_hot_encoded_data.drop(["price"],axis=1)
+y=one_hot_encoded_data[["price"]]
